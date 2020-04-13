@@ -8,7 +8,10 @@ function App() {
   const handlerModal = function () {
     window.parent.postMessage({
       type: 'ui-modal__send',
-      payload: 'Esta seguro que desea hacer esto?',
+      payload: {
+        css: '.modal-scope {color: red;} .modal-scope p {color: blue;} .modal-scope button {color:green;}',
+        content: '<p>Esta seguro que desea hacer esto?<p>',
+      }
     }, "*")
   };
 

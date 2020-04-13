@@ -15,7 +15,7 @@
             padding: 0;
         }
         
-        .modal {
+        .modal-scope {
             display: none;
             position: absolute;
             z-index: 9999;
@@ -28,7 +28,7 @@
             background: #00000085;
         }
         
-        .modal__box {
+        .modal-scope__box {
             position: absolute;
             width: 200px;
             height: 200px;
@@ -43,11 +43,12 @@
 </head>
 
 <body>
-    <div class="modal" id="modal">
-        <div class="modal__box">
-            <div id="modal__box__text"></div>
-            <button id="modal__box__nok">NOK</button>
-            <button id="modal__box__ok">OK</button>
+    <div class="modal-scope" id="modal-scope">
+        <div class="modal-scope__box">
+            <div id="modal-scope__box__text"></div>
+            <button id="modal-scope__box__nok">NOK</button>
+            <button id="modal-scope__box__ok">OK</button>
+            <style id="modal-scope__style" type="text/css"></style>
         </div>
     </div>
     <iframe src="http://localhost:3000/" id="target-iframe" frameborder="0"></iframe>
@@ -63,10 +64,11 @@
             }, '*');
         }
 
-        var modal = document.getElementById('modal');
-        var modalText = document.getElementById('modal__box__text');
-        var modalOk = document.getElementById('modal__box__ok');
-        var modalNok = document.getElementById('modal__box__nok');
+        var modal = document.getElementById('modal-scope');
+        var modalText = document.getElementById('modal-scope__box__text');
+        var modalOk = document.getElementById('modal-scope__box__ok');
+        var modalNok = document.getElementById('modal-scope__box__nok');
+        var modalStyle = document.getElementById('modal-scope__style');
 
         modalOk.addEventListener('click', function() {
             sendMessage(true);
@@ -103,7 +105,10 @@
             // if (e.origin !== 'http://the-trusted-iframe-origin.com') return;
             var msg = getMessage(e);
             if (msg.success) {
-                modalText.innerHTML = msg.payload;
+                modalText.innerHTML = '';
+                modalStyle.childNodes[0] && modalStyle.removeChild(modalStyle.childNodes[0]);
+                modalStyle.appendChild(document.createTextNode(msg.payload.css));
+                modalText.innerHTML = msg.payload.content;
                 modal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
             } else {}
