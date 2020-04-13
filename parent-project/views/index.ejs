@@ -48,7 +48,6 @@
             <div id="modal-scope__box__text"></div>
             <button id="modal-scope__box__nok">NOK</button>
             <button id="modal-scope__box__ok">OK</button>
-            <style id="modal-scope__style" type="text/css"></style>
         </div>
     </div>
     <iframe src="http://localhost:3000/" id="target-iframe" frameborder="0"></iframe>
@@ -105,10 +104,12 @@
             // if (e.origin !== 'http://the-trusted-iframe-origin.com') return;
             var msg = getMessage(e);
             if (msg.success) {
-                modalText.innerHTML = '';
-                modalStyle.childNodes[0] && modalStyle.removeChild(modalStyle.childNodes[0]);
-                modalStyle.appendChild(document.createTextNode(msg.payload.css));
-                modalText.innerHTML = msg.payload.content;
+                const host = modalText;
+                host.attachShadow({
+                    mode: 'open'
+                });
+                host.shadowRoot.innerHTML = "";
+                host.shadowRoot.innerHTML = '<style>' + msg.payload.css + '</style>' + msg.payload.content;
                 modal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
             } else {}

@@ -9,7 +9,7 @@ function App() {
     window.parent.postMessage({
       type: 'ui-modal__send',
       payload: {
-        css: '.modal-scope {color: red;} .modal-scope p {color: blue;} .modal-scope button {color:green;}',
+        css: '* {color: red;} p {color: blue;} button {color:green;}',
         content: '<p>Esta seguro que desea hacer esto?<p>',
       }
     }, "*")
