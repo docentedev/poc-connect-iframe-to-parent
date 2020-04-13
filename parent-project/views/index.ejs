@@ -53,69 +53,75 @@
         </div>
     </div>
     <iframe src="http://localhost:3000/" id="target-iframe" frameborder="0"></iframe>
+
+    <!-- https://github.com/tuespetre/shadow-dom/blob/master/tests/index.html -->
+    <script src="http://localhost:3001/shadow.js"></script>
     <script type="text/javascript">
-        var eventMethod = window.addEventListener ? 'addEventListener' : 'attachEvent';
-        var eventer = window[eventMethod];
-        var messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
+        (function() {
+            var eventMethod = window.addEventListener ? 'addEventListener' : 'attachEvent';
+            var eventer = window[eventMethod];
+            var messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
 
-        var sendMessage = function(payload) {
-            document.getElementById('target-iframe').contentWindow.postMessage({
-                type: 'ui-modal__receive',
-                payload: payload,
-            }, '*');
-        }
-
-        var modal = document.getElementById('modal-scope');
-        var modalText = document.getElementById('modal-scope__box__text');
-        var modalOk = document.getElementById('modal-scope__box__ok');
-        var modalNok = document.getElementById('modal-scope__box__nok');
-        var modalStyle = document.getElementById('modal-scope__style');
-
-        modalOk.addEventListener('click', function() {
-            sendMessage(true);
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        });
-
-        modalNok.addEventListener('click', function() {
-            sendMessage(false);
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        });
-
-        var getMessage = function(e) {
-            if (e.data || e.message) {
-                if (e.data.type === "ui-modal__send" || e.message.type === 'ui-modal__send') {
-                    var msg = e.data.type || e.message.type;
-                    var payload = e.data.payload || e.message.payload;
-                    console.log(payload);
-                    return {
-                        msg: msg,
-                        payload: payload,
-                        success: true,
-                    };
-                }
+            var sendMessage = function(payload) {
+                document.getElementById('target-iframe').contentWindow.postMessage({
+                    type: 'ui-modal__receive',
+                    payload: payload,
+                }, '*');
             }
-            return {
-                msg: '',
-                payload: '',
-                success: false,
-            };
-        }
-        eventer(messageEvent, function(e) {
-            // if (e.origin !== 'http://the-trusted-iframe-origin.com') return;
-            var msg = getMessage(e);
-            if (msg.success) {
-                const host = modalText;
-                host.attachShadow({
-                    mode: 'open'
-                });
-                host.shadowRoot.innerHTML = "";
-                host.shadowRoot.innerHTML = '<style>' + msg.payload.css + '</style>' + msg.payload.content;
-                modal.style.display = 'block';
-                document.body.style.overflow = 'hidden';
-            } else {}
-        });
+
+            var modal = document.getElementById('modal-scope');
+            var modalText = document.getElementById('modal-scope__box__text');
+            var modalOk = document.getElementById('modal-scope__box__ok');
+            var modalNok = document.getElementById('modal-scope__box__nok');
+            var modalStyle = document.getElementById('modal-scope__style');
+            const host = modalText;
+            host.attachShadow({
+                mode: 'open'
+            });
+
+            modalOk.addEventListener('click', function() {
+                sendMessage(true);
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+
+            modalNok.addEventListener('click', function() {
+                sendMessage(false);
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+
+            var getMessage = function(e) {
+                if (e.data || e.message) {
+                    if (e.data.type === "ui-modal__send" || e.message.type === 'ui-modal__send') {
+                        var msg = e.data.type || e.message.type;
+                        var payload = e.data.payload || e.message.payload;
+                        console.log(payload);
+                        return {
+                            msg: msg,
+                            payload: payload,
+                            success: true,
+                        };
+                    }
+                }
+                return {
+                    msg: '',
+                    payload: '',
+                    success: false,
+                };
+            }
+            eventer(messageEvent, function(e) {
+                // if (e.origin !== 'http://the-trusted-iframe-origin.com') return;
+                var msg = getMessage(e);
+                if (msg.success) {
+
+                    host.shadowRoot.innerHTML = "";
+                    host.shadowRoot.innerHTML = '<style>' + msg.payload.css + '</style>' + msg.payload.content;
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                } else {}
+            });
+        })()
     </script>
 </body>
 
