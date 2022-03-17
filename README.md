@@ -81,3 +81,41 @@ try {
     - es increible que todo junto se escriba separado y separado todo junto
 - de ahora en adelante los grupos sera de 2 personas, de tres no funciona pues no todos estan participando... Veo muchas gente muy callada. Asi no aprenderan
 - Practicar, Practicar, Practicar
+- Nos vemos en Iquique para celebrar
+- recuerden que en el bloque `try`, los errores se manejan en `catch` y siempre se ejecutara al final un bloque `finaly`
+- Olvidense de `jQuery` `Ese compa ya esta muerto, no mas no le han avisado!!!`
+- Destruyan de su mente la funcionalidad `$.ajax`, en cambio abracen con fuerza `fetch`
+- en clases las propiedades del objeto deben ser privadas (aun cuando igual se pueden utilizar, la convencion indica que respetamos la regla)
+    - las propiedades para seguir la convencion de privadas, utilizan como prefijo un guion bajo
+    - para acceder a ellas utilizaremos getter y setter
+```js
+// Alternativa 1
+class Persona {
+    constructor() {
+        this._nombre = ''
+    }
+    
+    get nombre () {
+        return this._nombre
+    }
+    
+    set nombre (nombre) {
+        this._nombre = nombre
+    }
+}
+
+// Alternativa 2
+class Persona {
+    constructor() {
+        this._nombre = ''
+    }
+    
+    getNombre () {
+        return this._nombre
+    }
+    
+    setNombre (nombre) {
+        this._nombre = nombre
+    }
+}
+```
