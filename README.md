@@ -1,4 +1,4 @@
-# Convenciones
+# Convenciones
 
 - siempre utilizar `const` a menos que se deba utilizar `let`
 - nunca utilizar `var`
