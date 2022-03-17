@@ -63,3 +63,21 @@ try {
 })
 
 ```
+
+- Los errores son excepcionales, por lo tanto no deberian utilizarse al boleo
+    - para la logica de su codigo preferir condicionales
+    - los errores utilicenlo cuando hagan llamados a APIs sobre todo
+- Bootstrap
+    - Un `container` deberia tener solo `row`
+    - Un `row` deberia tener solo `col-`
+    - Preferir Bootstrap de manera local (osea lo descargan y lo integran)
+    - Siempre tengan un proyecto con `Bootstrap` agregado y la estructura basica de carpetas por si tienen que iniciar de 0 algun proyecto
+- Utilicen para todos sus proyectos NPM y GIT, siempre asocien un proyecto a un repositorio (Github)
+- Si su proyecto es `HTML` activen Github Pages
+- Participen en clases, no lo hagan solo por un premio, recuerden que el premio es salir bien preparado para que tengan una `Pega Pulenta` con un `Sueldo Pulento`
+- Apliquen siempre los principios mas bacanosos del mundo mundial
+    - DRY: No se repitan, no repitan su codigo!!!
+    - KISS: Mantenganlo Simple Estudiantes (anque el original es Idiotas)
+    - es increible que todo junto se escriba separado y separado todo junto
+- de ahora en adelante los grupos sera de 2 personas, de tres no funciona pues no todos estan participando... Veo muchas gente muy callada. Asi no aprenderan
+- Practicar, Practicar, Practicar
